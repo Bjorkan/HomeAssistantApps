@@ -1,0 +1,4 @@
+build_from:
+  amd64: "ghcr.io/yeraze/meshmonitor:3.9.5"
+  aarch64: "ghcr.io/yeraze/meshmonitor:3.9.5"
+  armv7: "ghcr.io/yeraze/meshmonitor:3.9.5"

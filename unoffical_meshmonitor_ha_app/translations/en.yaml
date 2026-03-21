@@ -1,0 +1,13 @@
+configuration:
+  node_ip:
+    name: Node IP address
+    description: IP address of the Meshtastic node that MeshMonitor should connect to.
+  node_tcp_port:
+    name: Node TCP port
+    description: TCP port exposed by the Meshtastic node. Default is 4403.
+  timezone:
+    name: Timezone
+    description: Timezone passed to the MeshMonitor container, for example Europe/Stockholm.
+
+network:
+  3001/TCP: MeshMonitor web interface port

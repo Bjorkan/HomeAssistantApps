@@ -1,0 +1,31 @@
+name: "Unoffical MeshMonitor HA app"
+version: "0.0.1"
+slug: "unoffical_meshmonitor_ha_app"
+description: >-
+  Simple Home Assistant app wrapper for MeshMonitor using a TCP/IP Meshtastic node.
+url: "https://github.com/Yeraze/meshmonitor"
+startup: application
+boot: auto
+init: false
+arch:
+  - amd64
+  - aarch64
+  - armv7
+
+webui: "http://[HOST]:[PORT:3001]"
+
+ports:
+  3001/tcp: 8080
+
+ports_description:
+  3001/tcp: "MeshMonitor web interface"
+
+options:
+  node_ip: "192.168.1.100"
+  node_tcp_port: 4403
+  timezone: "Europe/Stockholm"
+
+schema:
+  node_ip: str
+  node_tcp_port: port
+  timezone: str
