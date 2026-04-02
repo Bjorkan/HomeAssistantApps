@@ -8,6 +8,15 @@ configuration:
   timezone:
     name: Timezone
     description: Timezone passed to the MeshMonitor container, for example Europe/Stockholm.
+  trust_proxy:
+    name: Trust reverse proxy
+    description: Enable when HTTPS is terminated by a reverse proxy so secure cookies work correctly.
+  cookie_secure:
+    name: Secure session cookies
+    description: Keep enabled for HTTPS. Disable only for direct HTTP development/testing.
+  allowed_origins:
+    name: Allowed origins
+    description: CORS allowed origins, for example https://meshmonitor.example.com (use * only if needed).
 
 network:
   3001/TCP: MeshMonitor web interface port
