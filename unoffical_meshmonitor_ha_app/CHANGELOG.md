@@ -17,3 +17,4 @@
 - Added add-on options for `trust_proxy`, `cookie_secure`, and `allowed_origins`
 - Updated startup wrapper to export proxy/cookie environment settings for MeshMonitor
 - Documented HTTPS reverse proxy, direct HTTP, and direct HTTPS deployment scenarios
+- Fixed boolean option rendering so `trust_proxy`/`cookie_secure` are exported as lowercase `true`/`false`

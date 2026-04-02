@@ -43,7 +43,10 @@ with config_path.open("r", encoding="utf-8") as handle:
 value = data.get(key, default)
 
 # Print the value exactly once so shell command substitution can use it.
-print(value)
+if isinstance(value, bool):
+    print("true" if value else "false")
+else:
+    print(value)
 PY
 }
 
