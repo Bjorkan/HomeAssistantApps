@@ -1,5 +1,5 @@
 name: "Unoffical MeshMonitor HA app"
-version: "0.0.1"
+version: "0.0.2"
 slug: "unoffical_meshmonitor_ha_app"
 description: >-
   Simple Home Assistant app wrapper for MeshMonitor using a TCP/IP Meshtastic node.
