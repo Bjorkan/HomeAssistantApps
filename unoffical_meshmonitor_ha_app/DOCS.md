@@ -9,6 +9,8 @@ This app reuses the upstream MeshMonitor container and adds a very small Home As
 - The Meshtastic node IP address
 - The Meshtastic node TCP port
 - The timezone
+- Proxy/cookie settings for secure session cookies
+- Allowed web origins
 
 ## What is intentionally kept simple
 
@@ -45,6 +47,28 @@ Timezone passed into the MeshMonitor container.
 Example:
 `Europe/Stockholm`
 
+### `trust_proxy`
+Set to `true` when running behind an HTTPS reverse proxy (recommended).
+This makes MeshMonitor trust `X-Forwarded-Proto` so secure cookies can be set.
+
+Default:
+`true`
+
+### `cookie_secure`
+Set to `true` for HTTPS deployments.
+Set to `false` only for direct HTTP development/testing.
+
+Default:
+`true`
+
+### `allowed_origins`
+Allowed CORS origins for the web UI.
+Use a specific HTTPS origin in production when possible.
+
+Examples:
+`https://meshmonitor.example.com`
+`*`
+
 ## Install
 
 1. Add this repository to Home Assistant.
@@ -53,3 +77,25 @@ Example:
 4. Adjust the **Network** port if needed.
 5. Start the app.
 6. Open the web UI from the add-on page.
+
+## Proxy and cookie setup scenarios
+
+### Scenario A: Behind HTTPS reverse proxy (recommended)
+
+- `trust_proxy: true`
+- `cookie_secure: true`
+- `allowed_origins: https://meshmonitor.example.com` (or your domain)
+
+### Scenario B: Direct HTTP access (development/testing only)
+
+- `trust_proxy: false`
+- `cookie_secure: false`
+- `allowed_origins: *`
+
+⚠️ This is less secure and should not be used for production internet-facing deployments.
+
+### Scenario C: Direct HTTPS access
+
+- `trust_proxy: false` (unless another proxy is involved)
+- `cookie_secure: true`
+- `allowed_origins` set to your HTTPS origin

@@ -1,5 +1,5 @@
 name: "Unoffical MeshMonitor HA app"
-version: "0.0.2"
+version: "0.0.3"
 slug: "unoffical_meshmonitor_ha_app"
 description: >-
   Simple Home Assistant app wrapper for MeshMonitor using a TCP/IP Meshtastic node.
@@ -24,8 +24,14 @@ options:
   node_ip: "192.168.1.100"
   node_tcp_port: 4403
   timezone: "Europe/Stockholm"
+  trust_proxy: true
+  cookie_secure: true
+  allowed_origins: "*"
 
 schema:
   node_ip: str
   node_tcp_port: port
   timezone: str
+  trust_proxy: bool
+  cookie_secure: bool
+  allowed_origins: str
