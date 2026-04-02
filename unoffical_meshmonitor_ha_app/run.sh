@@ -6,7 +6,8 @@ set -eu
 #
 # This script keeps the Home Assistant layer intentionally simple:
 # - Node IP, TCP port and timezone are read from add-on options
-# - ALLOWED_ORIGINS is always set to "*" as requested
+# - Proxy/cookie behavior can be configured for HTTPS reverse proxies
+#   or direct HTTP access
 # - Virtual Node support is disabled to keep this app focused on
 #   a single TCP/IP connection to the target node
 # - The internal MeshMonitor web port remains 3001
@@ -60,11 +61,15 @@ fi
 NODE_IP="$(read_option node_ip 192.168.1.100)"
 NODE_TCP_PORT="$(read_option node_tcp_port 4403)"
 TIMEZONE_VALUE="$(read_option timezone Europe/Stockholm)"
+TRUST_PROXY_VALUE="$(read_option trust_proxy true)"
+COOKIE_SECURE_VALUE="$(read_option cookie_secure true)"
+ALLOWED_ORIGINS_VALUE="$(read_option allowed_origins '*')"
 
 # Export environment variables expected by MeshMonitor.
 export MESHTASTIC_NODE_IP="$NODE_IP"
 export MESHTASTIC_TCP_PORT="$NODE_TCP_PORT"
 export TZ="$TIMEZONE_VALUE"
+export TRUST_PROXY="$TRUST_PROXY_VALUE"
 
 # Keep the internal application port fixed.
 # Home Assistant should handle the external/host-side port mapping.
@@ -78,14 +83,14 @@ export SYSTEM_BACKUP_DIR="/data/system-backups"
 export APPRISE_CONFIG_DIR="/data/apprise-config"
 export ACCESS_LOG_PATH="/data/logs/access.log"
 
-# Keep direct HTTP access simple for local Home Assistant use.
-export COOKIE_SECURE="false"
+# Allow direct HTTP access for development when cookie_secure is disabled.
+export COOKIE_SECURE="$COOKIE_SECURE_VALUE"
 
 # Persisted session secret for stable cookie encryption.
 export SESSION_SECRET="$(cat "$SESSION_SECRET_FILE")"
 
-# Requested behavior: keep allowed origins as wildcard.
-export ALLOWED_ORIGINS="*"
+# Allow user-defined origins (for example https://meshmonitor.example.com).
+export ALLOWED_ORIGINS="$ALLOWED_ORIGINS_VALUE"
 
 # Requested behavior: TCP/IP connection to the node only.
 # Disable MeshMonitor's virtual node server to keep scope small.
@@ -97,6 +102,8 @@ echo "Node IP: ${MESHTASTIC_NODE_IP}"
 echo "Node TCP port: ${MESHTASTIC_TCP_PORT}"
 echo "Timezone: ${TZ}"
 echo "Internal web port: ${PORT}"
+echo "Trust proxy: ${TRUST_PROXY}"
+echo "Cookie secure: ${COOKIE_SECURE}"
 echo "Allowed origins: ${ALLOWED_ORIGINS}"
 echo "Virtual node enabled: ${ENABLE_VIRTUAL_NODE}"
 echo "------------------------------------------------------------"

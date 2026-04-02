@@ -2,6 +2,8 @@
 
 A minimal Home Assistant app wrapper around MeshMonitor.
 
+Supports reverse-proxy aware session cookie settings (`TRUST_PROXY`, `COOKIE_SECURE`, and `ALLOWED_ORIGINS`) through add-on options.
+
 ## License
 
 The Home Assistant wrapper and repository files in this project are licensed under the MIT License.
