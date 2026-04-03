@@ -18,3 +18,6 @@
 - Updated startup wrapper to export proxy/cookie environment settings for MeshMonitor
 - Documented HTTPS reverse proxy, direct HTTP, and direct HTTPS deployment scenarios
 - Fixed boolean option rendering so `trust_proxy`/`cookie_secure` are exported as lowercase `true`/`false`
+
+## 0.0.4
+- Update upstream Meshmonitor app to "3.12.0"
