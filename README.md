@@ -7,3 +7,4 @@ This repository contains Home Assistant apps for my personal use.
 ## Included apps
 
 - `unoffical_meshmonitor_ha_app` — Unoffical MeshMonitor HA app
+- `unoffical_meshcore_live_map_ha_app` — Unoffical MeshCore Live Map HA app
