@@ -1,0 +1,49 @@
+configuration:
+  timezone:
+    name: Timezone
+    description: Timezone value used in the container.
+  site_title:
+    name: Site title
+    description: Browser tab title and in-app heading.
+  site_description:
+    name: Site description
+    description: Metadata description for the map site.
+  mqtt_host:
+    name: MQTT host
+    description: MQTT broker hostname or IP.
+  mqtt_port:
+    name: MQTT port
+    description: MQTT broker port.
+  mqtt_username:
+    name: MQTT username
+    description: Optional MQTT username.
+  mqtt_password:
+    name: MQTT password
+    description: Optional MQTT password.
+  mqtt_transport:
+    name: MQTT transport
+    description: Choose tcp or websockets transport.
+  mqtt_ws_path:
+    name: MQTT WebSocket path
+    description: Path for WebSocket MQTT connections.
+  mqtt_tls:
+    name: MQTT TLS
+    description: Use TLS when connecting to MQTT.
+  mqtt_topic:
+    name: MQTT topic filter
+    description: Topic pattern to subscribe to.
+  map_start_lat:
+    name: Default map latitude
+    description: Starting center latitude.
+  map_start_lon:
+    name: Default map longitude
+    description: Starting center longitude.
+  map_start_zoom:
+    name: Default map zoom
+    description: Initial map zoom level.
+  prod_mode:
+    name: Production mode
+    description: Require token auth for API and websocket routes.
+  prod_token:
+    name: Production token
+    description: Token used when production mode is enabled.

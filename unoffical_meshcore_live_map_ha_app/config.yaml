@@ -1,0 +1,57 @@
+name: "Unoffical MeshCore Live Map HA app"
+version: "0.0.1"
+slug: "unoffical_meshcore_live_map_ha_app"
+description: >-
+  Simple Home Assistant app wrapper for meshcore-mqtt-live-map.
+url: "https://github.com/yellowcooln/meshcore-mqtt-live-map"
+startup: application
+boot: auto
+init: false
+arch:
+  - amd64
+  - aarch64
+  - armv7
+
+webui: "http://[HOST]:[PORT:8080]"
+
+ports:
+  8080/tcp: 8080
+
+ports_description:
+  8080/tcp: "MeshCore Live Map web interface"
+
+options:
+  timezone: "UTC"
+  site_title: "Mesh Live Map"
+  site_description: "Live view of mesh nodes, message routes, and advert paths."
+  mqtt_host: "broker.example.local"
+  mqtt_port: 1883
+  mqtt_username: ""
+  mqtt_password: ""
+  mqtt_transport: "tcp"
+  mqtt_ws_path: "/mqtt"
+  mqtt_tls: false
+  mqtt_topic: "meshcore/#"
+  map_start_lat: 42.3601
+  map_start_lon: -71.1500
+  map_start_zoom: 10
+  prod_mode: false
+  prod_token: ""
+
+schema:
+  timezone: str
+  site_title: str
+  site_description: str
+  mqtt_host: str
+  mqtt_port: port
+  mqtt_username: str?
+  mqtt_password: password?
+  mqtt_transport: list(tcp|websockets)
+  mqtt_ws_path: str
+  mqtt_tls: bool
+  mqtt_topic: str
+  map_start_lat: float
+  map_start_lon: float
+  map_start_zoom: int
+  prod_mode: bool
+  prod_token: str?
