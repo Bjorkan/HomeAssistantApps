@@ -20,3 +20,4 @@ configuration:
 
 network:
   3001/TCP: MeshMonitor web interface port
+  4404/TCP: Virtual Node Server port for Meshtastic mobile apps

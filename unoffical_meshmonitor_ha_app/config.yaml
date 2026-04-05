@@ -1,5 +1,5 @@
 name: "Unoffical MeshMonitor HA app"
-version: "0.0.4"
+version: "0.0.5"
 slug: "unoffical_meshmonitor_ha_app"
 description: >-
   Simple Home Assistant app wrapper for MeshMonitor using a TCP/IP Meshtastic node.
@@ -16,9 +16,11 @@ webui: "http://[HOST]:[PORT:3001]"
 
 ports:
   3001/tcp: 8080
+  4404/tcp: 4404
 
 ports_description:
   3001/tcp: "MeshMonitor web interface"
+  4404/tcp: "Virtual Node Server (Meshtastic mobile app TCP)"
 
 options:
   node_ip: "192.168.1.100"

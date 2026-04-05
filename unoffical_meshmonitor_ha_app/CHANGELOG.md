@@ -21,3 +21,8 @@
 
 ## 0.0.4
 - Update upstream Meshmonitor app to "3.12.0"
+
+## 0.0.5
+- Enabled MeshMonitor Virtual Node Server by default (`ENABLE_VIRTUAL_NODE=true`)
+- Added fixed virtual node port export (`VIRTUAL_NODE_PORT=4404`)
+- Exposed add-on network port `4404/tcp` for Meshtastic mobile app TCP connections

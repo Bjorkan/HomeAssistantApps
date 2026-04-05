@@ -8,8 +8,7 @@ set -eu
 # - Node IP, TCP port and timezone are read from add-on options
 # - Proxy/cookie behavior can be configured for HTTPS reverse proxies
 #   or direct HTTP access
-# - Virtual Node support is disabled to keep this app focused on
-#   a single TCP/IP connection to the target node
+# - Virtual Node Server is always enabled on port 4404
 # - The internal MeshMonitor web port remains 3001
 #
 # Important:
@@ -95,9 +94,11 @@ export SESSION_SECRET="$(cat "$SESSION_SECRET_FILE")"
 # Allow user-defined origins (for example https://meshmonitor.example.com).
 export ALLOWED_ORIGINS="$ALLOWED_ORIGINS_VALUE"
 
-# Requested behavior: TCP/IP connection to the node only.
-# Disable MeshMonitor's virtual node server to keep scope small.
-export ENABLE_VIRTUAL_NODE="false"
+# Always enable MeshMonitor's Virtual Node Server.
+# This allows Meshtastic mobile apps to connect through MeshMonitor
+# using the default virtual node port from upstream documentation.
+export ENABLE_VIRTUAL_NODE="true"
+export VIRTUAL_NODE_PORT="4404"
 
 echo "------------------------------------------------------------"
 echo "Starting MeshMonitor HA app"
@@ -109,6 +110,7 @@ echo "Trust proxy: ${TRUST_PROXY}"
 echo "Cookie secure: ${COOKIE_SECURE}"
 echo "Allowed origins: ${ALLOWED_ORIGINS}"
 echo "Virtual node enabled: ${ENABLE_VIRTUAL_NODE}"
+echo "Virtual node port: ${VIRTUAL_NODE_PORT}"
 echo "------------------------------------------------------------"
 
 # Hand off to the original MeshMonitor container entrypoint.
