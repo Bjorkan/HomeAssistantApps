@@ -12,9 +12,13 @@ This app reuses the upstream MeshMonitor container and adds a very small Home As
 - Proxy/cookie settings for secure session cookies
 - Allowed web origins
 
+The app also enables MeshMonitor's Virtual Node Server by default (port `4404`) based on upstream guidance:
+https://meshmonitor.org/configuration/virtual-node.html
+
 ## What is intentionally kept simple
 
-- Only TCP/IP connections to the target Meshtastic node are supported
+- TCP/IP connection to the target Meshtastic node is still configured via `node_ip` + `node_tcp_port`
+- Virtual Node Server is always enabled on container port `4404`
 
 ## Setting the web port
 
@@ -24,6 +28,8 @@ By default, this app maps:
 
 - Container port `3001/tcp`
 - Host port `8080`
+- Container port `4404/tcp`
+- Host port `4404`
 
 You can change the host port in Home Assistant to any free port you want.
 
