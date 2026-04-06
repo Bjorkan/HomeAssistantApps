@@ -32,12 +32,16 @@ config_path = Path(sys.argv[1])
 key = sys.argv[2]
 default = sys.argv[3]
 
-if not config_path.exists():
+try:
+    if not config_path.exists():
+        print(default)
+        raise SystemExit(0)
+
+    with config_path.open("r", encoding="utf-8") as handle:
+        data = json.load(handle)
+except (PermissionError, json.JSONDecodeError, OSError):
     print(default)
     raise SystemExit(0)
-
-with config_path.open("r", encoding="utf-8") as handle:
-    data = json.load(handle)
 
 value = data.get(key, default)
 
