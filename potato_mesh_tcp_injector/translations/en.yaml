@@ -1,0 +1,25 @@
+configuration:
+  potato_mesh_url:
+    name: Potato Mesh URL
+    description: URL to your Potato Mesh instance, for example http://192.168.1.50:41447.
+  api_token:
+    name: API token
+    description: API token used by the injector to POST data to Potato Mesh.
+  node_ip:
+    name: Node IP address
+    description: IP address of the Meshtastic node exposed over TCP.
+  node_tcp_port:
+    name: Node TCP port
+    description: TCP port exposed by the Meshtastic node (usually 4403).
+  timezone:
+    name: Timezone
+    description: Timezone used inside the container for timestamps.
+  debug:
+    name: Debug logging
+    description: Enable verbose ingestor logging.
+  allowed_channels:
+    name: Allowed channels
+    description: Optional comma-separated channel allowlist (for example Chat,Ops).
+  hidden_channels:
+    name: Hidden channels
+    description: Optional comma-separated channels that should be filtered out from UI visibility.

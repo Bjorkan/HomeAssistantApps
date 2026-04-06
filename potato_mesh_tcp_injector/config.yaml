@@ -1,0 +1,33 @@
+name: "Potato Mesh TCP Injector"
+version: "0.0.1"
+slug: "potato_mesh_tcp_injector"
+description: >-
+  Home Assistant add-on som kör Potato Mesh ingestor via ENBART Meshtastic TCP.
+url: "https://github.com/l5yth/potato-mesh"
+startup: application
+boot: auto
+init: false
+arch:
+  - amd64
+  - aarch64
+  - armv7
+
+options:
+  potato_mesh_url: "http://192.168.1.50:41447"
+  api_token: "change-me"
+  node_ip: "192.168.1.100"
+  node_tcp_port: 4403
+  timezone: "Europe/Stockholm"
+  debug: false
+  allowed_channels: ""
+  hidden_channels: ""
+
+schema:
+  potato_mesh_url: str
+  api_token: password
+  node_ip: str
+  node_tcp_port: port
+  timezone: str
+  debug: bool
+  allowed_channels: str
+  hidden_channels: str
