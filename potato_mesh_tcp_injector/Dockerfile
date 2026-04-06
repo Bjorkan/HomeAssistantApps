@@ -1,7 +1,6 @@
-ARG BUILD_FROM
-FROM $BUILD_FROM
+ARG BUILD_FROM=ghcr.io/l5yth/potato-mesh-ingestor-linux-arm64:v0.5.12
+FROM ${BUILD_FROM}
 
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
+COPY --chmod=0755 run.sh /run.sh
 
 ENTRYPOINT ["/run.sh"]
