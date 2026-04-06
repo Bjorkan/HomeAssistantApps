@@ -1,0 +1,4 @@
+build_from:
+  amd64: "ghcr.io/l5yth/potato-mesh-ingestor-linux-amd64:v0.5.12"
+  aarch64: "ghcr.io/l5yth/potato-mesh-ingestor-linux-arm64:v0.5.12"
+  armv7: "ghcr.io/l5yth/potato-mesh-ingestor-linux-armv7:v0.5.12"
