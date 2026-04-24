@@ -1,0 +1,40 @@
+name: "RemoteTerm for MeshCore HA app"
+version: "0.0.1"
+slug: "remoteterm_meshcore_ha_app"
+description: >-
+  Home Assistant add-on wrapper for RemoteTerm for MeshCore using MeshCore TCP.
+url: "https://github.com/jkingsman/Remote-Terminal-for-MeshCore"
+startup: application
+boot: auto
+init: false
+arch:
+  - amd64
+  - aarch64
+
+webui: "http://[HOST]:[PORT:8000]"
+
+ports:
+  8000/tcp: 8000
+
+ports_description:
+  8000/tcp: "RemoteTerm web interface"
+
+options:
+  meshcore_tcp_host: "192.168.1.100"
+  meshcore_tcp_port: 5000
+  timezone: "Europe/Stockholm"
+  log_level: "INFO"
+  disable_bots: true
+  enable_local_private_key_export: false
+  basic_auth_username: ""
+  basic_auth_password: ""
+
+schema:
+  meshcore_tcp_host: str
+  meshcore_tcp_port: port
+  timezone: str
+  log_level: list(DEBUG|INFO|WARNING|ERROR)
+  disable_bots: bool
+  enable_local_private_key_export: bool
+  basic_auth_username: str
+  basic_auth_password: password

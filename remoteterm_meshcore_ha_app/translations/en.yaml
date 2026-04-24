@@ -1,0 +1,28 @@
+configuration:
+  meshcore_tcp_host:
+    name: MeshCore TCP host
+    description: Hostname or IP address for the MeshCore node.
+  meshcore_tcp_port:
+    name: MeshCore TCP port
+    description: TCP port exposed by the MeshCore node. Default is 5000.
+  timezone:
+    name: Timezone
+    description: Timezone passed to the RemoteTerm container, for example Europe/Stockholm.
+  log_level:
+    name: Log level
+    description: Upstream log verbosity.
+  disable_bots:
+    name: Disable bots
+    description: Disable RemoteTerm's bot system entirely for a safer default setup.
+  enable_local_private_key_export:
+    name: Enable private key export
+    description: Enable the upstream private key export endpoint. Only use this on a trusted network.
+  basic_auth_username:
+    name: Basic auth username
+    description: Optional HTTP Basic auth username. Must be set together with the password.
+  basic_auth_password:
+    name: Basic auth password
+    description: Optional HTTP Basic auth password. Must be set together with the username.
+
+network:
+  8000/TCP: RemoteTerm web interface port

@@ -8,3 +8,4 @@ This repository contains Home Assistant apps for my personal use.
 
 - `unoffical_meshmonitor_ha_app` — Unoffical MeshMonitor HA app
 - `potato_mesh_tcp_injector` — Potato Mesh injector for TCP-only Meshtastic feeds
+- `remoteterm_meshcore_ha_app` — RemoteTerm for MeshCore wrapper for MeshCore TCP
