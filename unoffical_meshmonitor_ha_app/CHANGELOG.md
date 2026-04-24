@@ -26,3 +26,12 @@
 - Enabled MeshMonitor Virtual Node Server by default (`ENABLE_VIRTUAL_NODE=true`)
 - Added fixed virtual node port export (`VIRTUAL_NODE_PORT=4404`)
 - Exposed add-on network port `4404/tcp` for Meshtastic mobile app TCP connections
+
+## 0.0.6
+- Added Home Assistant options for optional MeshCore connectivity
+- Forwarded `MESHCORE_*` environment variables to upstream MeshMonitor for auto-connect
+- Made `node_ip` and `node_tcp_port` optional for MeshCore-only installs
+- Updated the startup wrapper to skip `MESHTASTIC_*` exports when no Meshtastic TCP node is configured
+- Made Virtual Node Server configurable through a new `virtual_node_enabled` add-on option
+- Updated the startup wrapper to export `ENABLE_VIRTUAL_NODE` only from add-on settings
+- Documented MeshCore TCP and serial configuration examples

@@ -6,9 +6,10 @@ set -eu
 #
 # This script keeps the Home Assistant layer intentionally simple:
 # - Node IP, TCP port and timezone are read from add-on options
+# - Optional MeshCore connection settings can be forwarded to upstream
 # - Proxy/cookie behavior can be configured for HTTPS reverse proxies
 #   or direct HTTP access
-# - Virtual Node Server is always enabled on port 4404
+# - Virtual Node Server can be enabled on port 4404
 # - The internal MeshMonitor web port remains 3001
 #
 # Important:
@@ -64,16 +65,34 @@ PY
 fi
 
 # Read Home Assistant options.
-NODE_IP="$(read_option node_ip 192.168.1.100)"
-NODE_TCP_PORT="$(read_option node_tcp_port 4403)"
+NODE_IP="$(read_option node_ip '')"
+NODE_TCP_PORT="$(read_option node_tcp_port '')"
 TIMEZONE_VALUE="$(read_option timezone Europe/Stockholm)"
 TRUST_PROXY_VALUE="$(read_option trust_proxy true)"
 COOKIE_SECURE_VALUE="$(read_option cookie_secure true)"
 ALLOWED_ORIGINS_VALUE="$(read_option allowed_origins '*')"
+VIRTUAL_NODE_ENABLED_VALUE="$(read_option virtual_node_enabled true)"
+MESHCORE_ENABLED_VALUE="$(read_option meshcore_enabled false)"
+MESHCORE_CONNECTION_TYPE_VALUE="$(read_option meshcore_connection_type tcp)"
+MESHCORE_TCP_HOST_VALUE="$(read_option meshcore_tcp_host '')"
+MESHCORE_TCP_PORT_VALUE="$(read_option meshcore_tcp_port 4403)"
+MESHCORE_SERIAL_PORT_VALUE="$(read_option meshcore_serial_port '')"
+MESHCORE_BAUD_RATE_VALUE="$(read_option meshcore_baud_rate 115200)"
+MESHCORE_FIRMWARE_TYPE_VALUE="$(read_option meshcore_firmware_type companion)"
 
 # Export environment variables expected by MeshMonitor.
-export MESHTASTIC_NODE_IP="$NODE_IP"
-export MESHTASTIC_TCP_PORT="$NODE_TCP_PORT"
+# Meshtastic TCP is optional so MeshCore-only installs can leave these unset.
+if [ -n "$NODE_IP" ]; then
+    export MESHTASTIC_NODE_IP="$NODE_IP"
+    if [ -n "$NODE_TCP_PORT" ]; then
+        export MESHTASTIC_TCP_PORT="$NODE_TCP_PORT"
+    else
+        export MESHTASTIC_TCP_PORT="4403"
+    fi
+else
+    unset MESHTASTIC_NODE_IP
+    unset MESHTASTIC_TCP_PORT
+fi
 export TZ="$TIMEZONE_VALUE"
 export TRUST_PROXY="$TRUST_PROXY_VALUE"
 
@@ -98,23 +117,71 @@ export SESSION_SECRET="$(cat "$SESSION_SECRET_FILE")"
 # Allow user-defined origins (for example https://meshmonitor.example.com).
 export ALLOWED_ORIGINS="$ALLOWED_ORIGINS_VALUE"
 
-# Always enable MeshMonitor's Virtual Node Server.
-# This allows Meshtastic mobile apps to connect through MeshMonitor
-# using the default virtual node port from upstream documentation.
-export ENABLE_VIRTUAL_NODE="true"
-export VIRTUAL_NODE_PORT="4404"
+# Optional MeshCore support. Upstream will auto-connect on startup when
+# MESHCORE_ENABLED=true and either TCP host or serial port is configured.
+export MESHCORE_ENABLED="$MESHCORE_ENABLED_VALUE"
+
+if [ "$MESHCORE_ENABLED" = "true" ]; then
+    export MESHCORE_FIRMWARE_TYPE="$MESHCORE_FIRMWARE_TYPE_VALUE"
+
+    if [ "$MESHCORE_CONNECTION_TYPE_VALUE" = "serial" ]; then
+        export MESHCORE_SERIAL_PORT="$MESHCORE_SERIAL_PORT_VALUE"
+        export MESHCORE_BAUD_RATE="$MESHCORE_BAUD_RATE_VALUE"
+        unset MESHCORE_TCP_HOST
+        unset MESHCORE_TCP_PORT
+    else
+        export MESHCORE_TCP_HOST="$MESHCORE_TCP_HOST_VALUE"
+        export MESHCORE_TCP_PORT="$MESHCORE_TCP_PORT_VALUE"
+        unset MESHCORE_SERIAL_PORT
+        unset MESHCORE_BAUD_RATE
+    fi
+else
+    unset MESHCORE_FIRMWARE_TYPE
+    unset MESHCORE_TCP_HOST
+    unset MESHCORE_TCP_PORT
+    unset MESHCORE_SERIAL_PORT
+    unset MESHCORE_BAUD_RATE
+fi
+
+# Optional Virtual Node Server support for Meshtastic mobile app TCP access.
+export ENABLE_VIRTUAL_NODE="$VIRTUAL_NODE_ENABLED_VALUE"
+if [ "$ENABLE_VIRTUAL_NODE" = "true" ]; then
+    export VIRTUAL_NODE_PORT="4404"
+else
+    unset VIRTUAL_NODE_PORT
+fi
 
 echo "------------------------------------------------------------"
 echo "Starting MeshMonitor HA app"
-echo "Node IP: ${MESHTASTIC_NODE_IP}"
-echo "Node TCP port: ${MESHTASTIC_TCP_PORT}"
+if [ -n "$NODE_IP" ]; then
+    echo "Meshtastic node IP: ${MESHTASTIC_NODE_IP}"
+    echo "Meshtastic node TCP port: ${MESHTASTIC_TCP_PORT}"
+else
+    echo "Meshtastic TCP node: disabled"
+fi
 echo "Timezone: ${TZ}"
 echo "Internal web port: ${PORT}"
 echo "Trust proxy: ${TRUST_PROXY}"
 echo "Cookie secure: ${COOKIE_SECURE}"
 echo "Allowed origins: ${ALLOWED_ORIGINS}"
 echo "Virtual node enabled: ${ENABLE_VIRTUAL_NODE}"
-echo "Virtual node port: ${VIRTUAL_NODE_PORT}"
+if [ "$ENABLE_VIRTUAL_NODE" = "true" ]; then
+    echo "Virtual node port: ${VIRTUAL_NODE_PORT}"
+else
+    echo "Virtual node port: disabled"
+fi
+echo "MeshCore enabled: ${MESHCORE_ENABLED}"
+if [ "$MESHCORE_ENABLED" = "true" ]; then
+    echo "MeshCore connection type: ${MESHCORE_CONNECTION_TYPE_VALUE}"
+    echo "MeshCore firmware type: ${MESHCORE_FIRMWARE_TYPE_VALUE}"
+    if [ "$MESHCORE_CONNECTION_TYPE_VALUE" = "serial" ]; then
+        echo "MeshCore serial port: ${MESHCORE_SERIAL_PORT_VALUE}"
+        echo "MeshCore baud rate: ${MESHCORE_BAUD_RATE_VALUE}"
+    else
+        echo "MeshCore host: ${MESHCORE_TCP_HOST_VALUE}"
+        echo "MeshCore TCP port: ${MESHCORE_TCP_PORT_VALUE}"
+    fi
+fi
 echo "------------------------------------------------------------"
 
 # Hand off to the original MeshMonitor container entrypoint.

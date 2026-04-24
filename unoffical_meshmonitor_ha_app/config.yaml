@@ -1,8 +1,8 @@
 name: "Unoffical MeshMonitor HA app"
-version: "0.0.5"
+version: "0.0.6"
 slug: "unoffical_meshmonitor_ha_app"
 description: >-
-  Simple Home Assistant app wrapper for MeshMonitor using a TCP/IP Meshtastic node.
+  Simple Home Assistant app wrapper for MeshMonitor with Meshtastic TCP and optional MeshCore support.
 url: "https://github.com/Yeraze/meshmonitor"
 startup: application
 boot: auto
@@ -23,17 +23,31 @@ ports_description:
   4404/tcp: "Virtual Node Server (Meshtastic mobile app TCP)"
 
 options:
-  node_ip: "192.168.1.100"
-  node_tcp_port: 4403
   timezone: "Europe/Stockholm"
   trust_proxy: true
   cookie_secure: true
   allowed_origins: "*"
+  virtual_node_enabled: true
+  meshcore_enabled: false
+  meshcore_connection_type: "tcp"
+  meshcore_tcp_host: ""
+  meshcore_tcp_port: 4403
+  meshcore_serial_port: ""
+  meshcore_baud_rate: 115200
+  meshcore_firmware_type: "companion"
 
 schema:
-  node_ip: str
-  node_tcp_port: port
+  node_ip: str?
+  node_tcp_port: port?
   timezone: str
   trust_proxy: bool
   cookie_secure: bool
   allowed_origins: str
+  virtual_node_enabled: bool
+  meshcore_enabled: bool
+  meshcore_connection_type: list(tcp|serial)
+  meshcore_tcp_host: str
+  meshcore_tcp_port: port
+  meshcore_serial_port: str
+  meshcore_baud_rate: int
+  meshcore_firmware_type: list(companion|repeater)
