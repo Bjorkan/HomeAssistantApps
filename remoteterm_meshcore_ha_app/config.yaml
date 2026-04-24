@@ -1,5 +1,5 @@
 name: "RemoteTerm for MeshCore HA app"
-version: "0.0.1"
+version: "0.0.2"
 slug: "remoteterm_meshcore_ha_app"
 description: >-
   Home Assistant add-on wrapper for RemoteTerm for MeshCore using MeshCore TCP.

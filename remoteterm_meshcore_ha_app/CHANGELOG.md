@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.2
+
+- Updated upstream RemoteTerm for MeshCore container to `3.12.3`
+
 ## 0.0.1
 
 - Initial Home Assistant app wrapper for RemoteTerm for MeshCore
