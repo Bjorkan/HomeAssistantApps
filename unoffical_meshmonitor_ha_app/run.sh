@@ -73,12 +73,8 @@ COOKIE_SECURE_VALUE="$(read_option cookie_secure true)"
 ALLOWED_ORIGINS_VALUE="$(read_option allowed_origins '*')"
 VIRTUAL_NODE_ENABLED_VALUE="$(read_option virtual_node_enabled true)"
 MESHCORE_ENABLED_VALUE="$(read_option meshcore_enabled false)"
-MESHCORE_CONNECTION_TYPE_VALUE="$(read_option meshcore_connection_type tcp)"
 MESHCORE_TCP_HOST_VALUE="$(read_option meshcore_tcp_host '')"
-MESHCORE_TCP_PORT_VALUE="$(read_option meshcore_tcp_port 4403)"
-MESHCORE_SERIAL_PORT_VALUE="$(read_option meshcore_serial_port '')"
-MESHCORE_BAUD_RATE_VALUE="$(read_option meshcore_baud_rate 115200)"
-MESHCORE_FIRMWARE_TYPE_VALUE="$(read_option meshcore_firmware_type companion)"
+MESHCORE_TCP_PORT_VALUE="$(read_option meshcore_tcp_port 5000)"
 
 # Export environment variables expected by MeshMonitor.
 # Meshtastic TCP is optional so MeshCore-only installs can leave these unset.
@@ -117,24 +113,16 @@ export SESSION_SECRET="$(cat "$SESSION_SECRET_FILE")"
 # Allow user-defined origins (for example https://meshmonitor.example.com).
 export ALLOWED_ORIGINS="$ALLOWED_ORIGINS_VALUE"
 
-# Optional MeshCore support. Upstream will auto-connect on startup when
-# MESHCORE_ENABLED=true and either TCP host or serial port is configured.
+# Optional MeshCore support over TCP. Upstream will auto-connect on startup when
+# MESHCORE_ENABLED=true and a TCP host is configured.
 export MESHCORE_ENABLED="$MESHCORE_ENABLED_VALUE"
 
 if [ "$MESHCORE_ENABLED" = "true" ]; then
-    export MESHCORE_FIRMWARE_TYPE="$MESHCORE_FIRMWARE_TYPE_VALUE"
-
-    if [ "$MESHCORE_CONNECTION_TYPE_VALUE" = "serial" ]; then
-        export MESHCORE_SERIAL_PORT="$MESHCORE_SERIAL_PORT_VALUE"
-        export MESHCORE_BAUD_RATE="$MESHCORE_BAUD_RATE_VALUE"
-        unset MESHCORE_TCP_HOST
-        unset MESHCORE_TCP_PORT
-    else
-        export MESHCORE_TCP_HOST="$MESHCORE_TCP_HOST_VALUE"
-        export MESHCORE_TCP_PORT="$MESHCORE_TCP_PORT_VALUE"
-        unset MESHCORE_SERIAL_PORT
-        unset MESHCORE_BAUD_RATE
-    fi
+    export MESHCORE_FIRMWARE_TYPE="companion"
+    export MESHCORE_TCP_HOST="$MESHCORE_TCP_HOST_VALUE"
+    export MESHCORE_TCP_PORT="$MESHCORE_TCP_PORT_VALUE"
+    unset MESHCORE_SERIAL_PORT
+    unset MESHCORE_BAUD_RATE
 else
     unset MESHCORE_FIRMWARE_TYPE
     unset MESHCORE_TCP_HOST
@@ -172,15 +160,10 @@ else
 fi
 echo "MeshCore enabled: ${MESHCORE_ENABLED}"
 if [ "$MESHCORE_ENABLED" = "true" ]; then
-    echo "MeshCore connection type: ${MESHCORE_CONNECTION_TYPE_VALUE}"
-    echo "MeshCore firmware type: ${MESHCORE_FIRMWARE_TYPE_VALUE}"
-    if [ "$MESHCORE_CONNECTION_TYPE_VALUE" = "serial" ]; then
-        echo "MeshCore serial port: ${MESHCORE_SERIAL_PORT_VALUE}"
-        echo "MeshCore baud rate: ${MESHCORE_BAUD_RATE_VALUE}"
-    else
-        echo "MeshCore host: ${MESHCORE_TCP_HOST_VALUE}"
-        echo "MeshCore TCP port: ${MESHCORE_TCP_PORT_VALUE}"
-    fi
+    echo "MeshCore connection type: tcp"
+    echo "MeshCore firmware type: companion"
+    echo "MeshCore host: ${MESHCORE_TCP_HOST_VALUE}"
+    echo "MeshCore TCP port: ${MESHCORE_TCP_PORT_VALUE}"
 fi
 echo "------------------------------------------------------------"
 

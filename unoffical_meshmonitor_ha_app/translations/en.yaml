@@ -23,24 +23,12 @@ configuration:
   meshcore_enabled:
     name: Enable MeshCore
     description: Enable MeshMonitor's upstream MeshCore auto-connect support.
-  meshcore_connection_type:
-    name: MeshCore connection type
-    description: Choose whether MeshCore should connect over TCP or a serial device.
   meshcore_tcp_host:
     name: MeshCore TCP host
-    description: Hostname or IP address for a MeshCore node when using TCP.
+    description: Hostname or IP address for a MeshCore node.
   meshcore_tcp_port:
     name: MeshCore TCP port
-    description: TCP port exposed by the MeshCore node. Default is 4403.
-  meshcore_serial_port:
-    name: MeshCore serial port
-    description: Serial device path for MeshCore when using serial mode, for example /dev/ttyUSB0.
-  meshcore_baud_rate:
-    name: MeshCore baud rate
-    description: Serial baud rate used for MeshCore serial mode. Default is 115200.
-  meshcore_firmware_type:
-    name: MeshCore firmware type
-    description: Use companion for standard MeshCore devices or repeater for repeater firmware.
+    description: TCP port exposed by the MeshCore node. Default is 5000.
 
 network:
   3001/TCP: MeshMonitor web interface port

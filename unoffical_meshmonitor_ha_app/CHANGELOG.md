@@ -34,4 +34,4 @@
 - Updated the startup wrapper to skip `MESHTASTIC_*` exports when no Meshtastic TCP node is configured
 - Made Virtual Node Server configurable through a new `virtual_node_enabled` add-on option
 - Updated the startup wrapper to export `ENABLE_VIRTUAL_NODE` only from add-on settings
-- Documented MeshCore TCP and serial configuration examples
+- Simplified MeshCore support to TCP only and changed the default MeshCore port to `5000`

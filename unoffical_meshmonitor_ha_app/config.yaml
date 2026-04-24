@@ -29,12 +29,8 @@ options:
   allowed_origins: "*"
   virtual_node_enabled: true
   meshcore_enabled: false
-  meshcore_connection_type: "tcp"
   meshcore_tcp_host: ""
-  meshcore_tcp_port: 4403
-  meshcore_serial_port: ""
-  meshcore_baud_rate: 115200
-  meshcore_firmware_type: "companion"
+  meshcore_tcp_port: 5000
 
 schema:
   node_ip: str?
@@ -45,9 +41,5 @@ schema:
   allowed_origins: str
   virtual_node_enabled: bool
   meshcore_enabled: bool
-  meshcore_connection_type: list(tcp|serial)
   meshcore_tcp_host: str
   meshcore_tcp_port: port
-  meshcore_serial_port: str
-  meshcore_baud_rate: int
-  meshcore_firmware_type: list(companion|repeater)

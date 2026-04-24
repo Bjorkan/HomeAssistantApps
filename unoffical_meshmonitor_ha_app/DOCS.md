@@ -91,18 +91,8 @@ Enable MeshCore auto-connect in upstream MeshMonitor.
 Default:
 `false`
 
-### `meshcore_connection_type`
-How MeshMonitor should connect to the MeshCore node.
-
-Allowed values:
-`tcp`
-`serial`
-
-Default:
-`tcp`
-
 ### `meshcore_tcp_host`
-Host or IP address of the MeshCore node when using TCP.
+Host or IP address of the MeshCore node.
 
 Example:
 `192.168.1.150`
@@ -111,29 +101,7 @@ Example:
 TCP port for the MeshCore node.
 
 Default:
-`4403`
-
-### `meshcore_serial_port`
-Serial device path for a MeshCore node when using serial mode.
-
-Example:
-`/dev/ttyUSB0`
-
-### `meshcore_baud_rate`
-Serial baud rate for MeshCore serial mode.
-
-Default:
-`115200`
-
-### `meshcore_firmware_type`
-MeshCore firmware mode expected by upstream MeshMonitor.
-
-Allowed values:
-`companion`
-`repeater`
-
-Default:
-`companion`
+`5000`
 
 ## Install
 
@@ -141,7 +109,7 @@ Default:
 2. Install **MeshMonitor HA (Unoffical) app**.
 3. Set `timezone`.
 4. If you want Meshtastic TCP, set `node_ip` and optionally `node_tcp_port`.
-5. If you want MeshCore, enable `meshcore_enabled` and fill in the matching TCP or serial settings.
+5. If you want MeshCore, enable `meshcore_enabled` and fill in the TCP settings.
 6. Choose whether `virtual_node_enabled` should be on.
 7. Adjust the **Network** port if needed.
 8. Start the app.
@@ -152,20 +120,8 @@ Default:
 ### Example A: MeshCore over TCP/IP
 
 - `meshcore_enabled: true`
-- `meshcore_connection_type: tcp`
 - `meshcore_tcp_host: 192.168.1.150`
-- `meshcore_tcp_port: 4403`
-- `meshcore_firmware_type: companion`
-
-### Example B: MeshCore over serial
-
-- `meshcore_enabled: true`
-- `meshcore_connection_type: serial`
-- `meshcore_serial_port: /dev/ttyUSB0`
-- `meshcore_baud_rate: 115200`
-- `meshcore_firmware_type: companion`
-
-If serial mode is used, the add-on container must be allowed to access the relevant device path from Home Assistant.
+- `meshcore_tcp_port: 5000`
 
 ## Proxy and cookie setup scenarios
 
