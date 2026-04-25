@@ -1,13 +1,14 @@
 # RemoteTerm for MeshCore HA app
 
-A minimal Unoffical Home Assistant app wrapper for [RemoteTerm for MeshCore](https://github.com/jkingsman/Remote-Terminal-for-MeshCore).
+A minimal unofficial Home Assistant app wrapper for [RemoteTerm for MeshCore](https://github.com/jkingsman/Remote-Terminal-for-MeshCore).
 
 ## What this app does
 
-This app reuses the upstream RemoteTerm container and adds a small Home Assistant wrapper so you can configure:
+This app builds the upstream RemoteTerm `tcp-proxy` branch and adds a small Home Assistant wrapper so you can configure:
 
 - The MeshCore TCP host
 - The MeshCore TCP port
+- The optional MeshCore TCP proxy
 - The timezone
 - Log level
 - Whether the bot system should be disabled
@@ -15,21 +16,25 @@ This app reuses the upstream RemoteTerm container and adds a small Home Assistan
 - Optional HTTP Basic auth
 
 The add-on exposes the RemoteTerm web UI on container port `8000`.
+When enabled, the MeshCore TCP proxy is exposed on container port `5001`.
 
 ## What is intentionally kept simple
 
-- This wrapper currently supports MeshCore over TCP only
+- This wrapper currently connects RemoteTerm to your MeshCore radio over TCP only
 - Serial and BLE transports are not exposed through Home Assistant options
 - The upstream app's database is stored in `/data/meshcore.db`
+- The TCP proxy is disabled by default
 
-## Setting the web port
+## Setting network ports
 
-The web interface port is changed in the Home Assistant app **Network** settings.
+The web interface and TCP proxy host ports are changed in the Home Assistant app **Network** settings.
 
 By default, this app maps:
 
 - Container port `8000/tcp`
 - Host port `8000`
+- Container port `5001/tcp`
+- Host port `5001`
 
 ## Configuration
 
@@ -44,6 +49,30 @@ TCP port for the MeshCore node.
 
 Default:
 `5000`
+
+### `tcp_proxy_enabled`
+Enable RemoteTerm's MeshCore companion TCP proxy.
+
+When enabled, MeshCore clients can connect to the add-on host using the configured `5001/tcp` Network port.
+
+Default:
+`false`
+
+### `tcp_proxy_bind`
+Bind address for the TCP proxy inside the add-on container.
+
+Keep this as `0.0.0.0` for normal Home Assistant network exposure.
+
+Default:
+`0.0.0.0`
+
+### `tcp_proxy_port`
+Internal container port for the TCP proxy.
+
+Default:
+`5001`
+
+The add-on exposes container port `5001/tcp`. To change the host-facing port, use the Home Assistant app **Network** settings. Leave this option at `5001` unless the packaged container port is changed too.
 
 ### `timezone`
 Timezone passed into the RemoteTerm container.
@@ -90,13 +119,15 @@ Must be set together with `basic_auth_username`.
 2. Install **RemoteTerm for MeshCore HA app**.
 3. Set `meshcore_tcp_host` and `meshcore_tcp_port`.
 4. Review the security-related options before exposing the UI to other devices.
-5. Adjust the **Network** port if needed.
-6. Start the app.
-7. Open the web UI from the add-on page.
+5. Enable `tcp_proxy_enabled` if you want MeshCore clients to connect through RemoteTerm.
+6. Adjust the **Network** ports if needed.
+7. Start the app.
+8. Open the web UI from the add-on page.
 
 ## Security notes
 
 - This project is intended for trusted environments only
+- The TCP proxy provides MeshCore companion access to connected clients; expose it only on trusted networks
 - Keep `disable_bots: true` unless you specifically need bot execution
 - Use HTTP Basic auth only together with HTTPS
 - Keep `enable_local_private_key_export: false` unless you actively need it

@@ -5,6 +5,15 @@ configuration:
   meshcore_tcp_port:
     name: MeshCore TCP port
     description: TCP port exposed by the MeshCore node. Default is 5000.
+  tcp_proxy_enabled:
+    name: Enable TCP proxy
+    description: Enable RemoteTerm's MeshCore companion TCP proxy for external MeshCore clients.
+  tcp_proxy_bind:
+    name: TCP proxy bind address
+    description: Address the proxy server listens on inside the add-on. Keep 0.0.0.0 for Home Assistant network exposure.
+  tcp_proxy_port:
+    name: TCP proxy port
+    description: Internal proxy port. Default is 5001; change the host-facing port in the add-on Network settings.
   timezone:
     name: Timezone
     description: Timezone passed to the RemoteTerm container, for example Europe/Stockholm.
@@ -26,3 +35,4 @@ configuration:
 
 network:
   8000/TCP: RemoteTerm web interface port
+  5001/TCP: MeshCore TCP proxy port

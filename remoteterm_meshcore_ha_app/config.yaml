@@ -1,9 +1,10 @@
 name: "RemoteTerm for MeshCore HA app"
-version: "0.0.2"
+version: "0.0.3"
 slug: "remoteterm_meshcore_ha_app"
 description: >-
-  Home Assistant add-on wrapper for RemoteTerm for MeshCore using MeshCore TCP.
-url: "https://github.com/jkingsman/Remote-Terminal-for-MeshCore"
+  Home Assistant add-on wrapper for RemoteTerm for MeshCore using MeshCore TCP,
+  with optional MeshCore TCP proxy support.
+url: "https://github.com/jkingsman/Remote-Terminal-for-MeshCore/tree/tcp-proxy"
 startup: application
 boot: auto
 init: false
@@ -15,13 +16,18 @@ webui: "http://[HOST]:[PORT:8000]"
 
 ports:
   8000/tcp: 8000
+  5001/tcp: 5001
 
 ports_description:
   8000/tcp: "RemoteTerm web interface"
+  5001/tcp: "MeshCore TCP proxy"
 
 options:
   meshcore_tcp_host: "192.168.1.100"
   meshcore_tcp_port: 5000
+  tcp_proxy_enabled: false
+  tcp_proxy_bind: "0.0.0.0"
+  tcp_proxy_port: 5001
   timezone: "Europe/Stockholm"
   log_level: "INFO"
   disable_bots: true
@@ -32,6 +38,9 @@ options:
 schema:
   meshcore_tcp_host: str
   meshcore_tcp_port: port
+  tcp_proxy_enabled: bool
+  tcp_proxy_bind: str
+  tcp_proxy_port: port
   timezone: str
   log_level: list(DEBUG|INFO|WARNING|ERROR)
   disable_bots: bool

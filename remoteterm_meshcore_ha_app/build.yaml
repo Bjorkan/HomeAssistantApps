@@ -1,3 +1,2 @@
-build_from:
-  amd64: "docker.io/jkingsman/remoteterm-meshcore:3.12.3"
-  aarch64: "docker.io/jkingsman/remoteterm-meshcore:3.12.3"
+args:
+  REMOTETERM_COMMIT_HASH: "tcp-proxy"
