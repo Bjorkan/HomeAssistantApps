@@ -4,7 +4,7 @@ ARG REMOTETERM_COMMIT_HASH=tcp-proxy
 
 WORKDIR /build
 
-ADD https://github.com/jkingsman/Remote-Terminal-for-MeshCore/archive/refs/heads/tcp-proxy.tar.gz /tmp/remoteterm.tar.gz
+ADD https://github.com/Bjorkan/ha-remoteterm-app/archive/refs/heads/tcp-proxy.tar.gz /tmp/remoteterm.tar.gz
 
 RUN tar -xzf /tmp/remoteterm.tar.gz --strip-components=1 -C /build
 RUN cd frontend && npm ci
