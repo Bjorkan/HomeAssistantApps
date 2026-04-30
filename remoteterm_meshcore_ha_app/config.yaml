@@ -1,10 +1,10 @@
 name: "RemoteTerm for MeshCore HA app"
-version: "0.0.4"
+version: "0.0.5"
 slug: "remoteterm_meshcore_ha_app"
 description: >-
   Home Assistant add-on wrapper for RemoteTerm for MeshCore using MeshCore TCP,
   with optional MeshCore TCP proxy support.
-url: "https://github.com/Bjorkan/ha-remoteterm-app/tree/tcp-proxy"
+url: "https://github.com/Bjorkan/Remote-Terminal-for-MeshCore/tree/TraceFix"
 startup: application
 boot: auto
 init: false

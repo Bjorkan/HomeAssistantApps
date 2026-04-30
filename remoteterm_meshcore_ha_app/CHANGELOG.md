@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.5
+
+- Switched RemoteTerm source to the `Bjorkan/Remote-Terminal-for-MeshCore` `TraceFix` branch
+- Updated app metadata to point at the `TraceFix` branch
+
 ## 0.0.4
 
 - Switched RemoteTerm source to the upstream `Bjorkan/ha-remoteterm-app` `tcp-proxy` branch

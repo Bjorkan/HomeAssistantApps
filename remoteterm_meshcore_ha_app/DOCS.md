@@ -1,10 +1,10 @@
 # RemoteTerm for MeshCore HA app
 
-A minimal unofficial Home Assistant app wrapper for [RemoteTerm for MeshCore](https://github.com/Bjorkan/ha-remoteterm-app).
+A minimal unofficial Home Assistant app wrapper for [RemoteTerm for MeshCore](https://github.com/Bjorkan/Remote-Terminal-for-MeshCore).
 
 ## What this app does
 
-This app builds the upstream RemoteTerm `tcp-proxy` branch and adds a small Home Assistant wrapper so you can configure:
+This app builds the upstream RemoteTerm `TraceFix` branch and adds a small Home Assistant wrapper so you can configure:
 
 - The MeshCore TCP host
 - The MeshCore TCP port
