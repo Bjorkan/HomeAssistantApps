@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.4
+
+- Switched RemoteTerm source to the upstream `Bjorkan/ha-remoteterm-app` `tcp-proxy` branch
+- Updated app metadata to point at the Bjorkan upstream repository
+
 ## 0.0.3
 
 - Pointed the RemoteTerm add-on at the upstream `tcp-proxy` branch

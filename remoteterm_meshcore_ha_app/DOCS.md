@@ -1,6 +1,6 @@
 # RemoteTerm for MeshCore HA app
 
-A minimal unofficial Home Assistant app wrapper for [RemoteTerm for MeshCore](https://github.com/jkingsman/Remote-Terminal-for-MeshCore).
+A minimal unofficial Home Assistant app wrapper for [RemoteTerm for MeshCore](https://github.com/Bjorkan/ha-remoteterm-app).
 
 ## What this app does
 
