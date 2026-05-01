@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.6
+
+- Switched RemoteTerm source back to the official `jkingsman/Remote-Terminal-for-MeshCore` release
+- Pinned the bundled RemoteTerm source to `3.13.0`
+- Removed TCP proxy options and the `5001/tcp` port because the pinned upstream release does not include that feature
+
 ## 0.0.5
 
 - Switched RemoteTerm source to the `Bjorkan/Remote-Terminal-for-MeshCore` `TraceFix` branch

@@ -1,10 +1,10 @@
 FROM node:20-slim AS frontend-builder
 
-ARG REMOTETERM_COMMIT_HASH=TraceFix
+ARG REMOTETERM_COMMIT_HASH=3.13.0
 
 WORKDIR /build
 
-ADD https://github.com/Bjorkan/Remote-Terminal-for-MeshCore/archive/refs/heads/TraceFix.tar.gz /tmp/remoteterm.tar.gz
+ADD https://github.com/jkingsman/Remote-Terminal-for-MeshCore/archive/refs/tags/${REMOTETERM_COMMIT_HASH}.tar.gz /tmp/remoteterm.tar.gz
 
 RUN tar -xzf /tmp/remoteterm.tar.gz --strip-components=1 -C /build
 RUN cd frontend && npm ci
@@ -12,7 +12,7 @@ RUN cd frontend && VITE_COMMIT_HASH="${REMOTETERM_COMMIT_HASH}" npm run build
 
 FROM python:3.13-slim
 
-ARG REMOTETERM_COMMIT_HASH=TraceFix
+ARG REMOTETERM_COMMIT_HASH=3.13.0
 
 WORKDIR /app
 
@@ -28,7 +28,7 @@ COPY --from=frontend-builder /build/frontend/dist ./frontend/dist
 
 RUN mkdir -p /app/data /data
 
-EXPOSE 8000 5001
+EXPOSE 8000
 
 # Copy the Home Assistant wrapper script.
 # This script reads add-on options from /data/options.json
